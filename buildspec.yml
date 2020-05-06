@@ -9,7 +9,7 @@ phases:
       - "cd $CODEBUILD_SRC_DIR/terraform"
   build:
     commands:
-      - custodian run -s s3://cloudcustodian-lambda-bucket-logs ./policies/*
+      - custodian run -s s3://endava-med-devops-bucket-log-audit/custodian_logs ./policies/*
   post_build:
     commands:
       - custodian rules applied

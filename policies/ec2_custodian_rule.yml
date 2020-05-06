@@ -9,9 +9,10 @@ policies:
     resource: ec2
     filters:
       - "State.Name": running
-      - "tag:Provisioner": absent
-      - "tag:owner": absent
-      - "tag:env": absent
-      - "tag:project": absent
+      - or:
+          - "tag:Provisioner": absent
+          - "tag:owner": absent
+          - "tag:env": absent
+          - "tag:project": absent
     actions:
       - terminate
