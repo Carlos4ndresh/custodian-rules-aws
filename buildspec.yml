@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip3 install c7n"
+  pre_build:
+    commands:
+      - "cd $CODEBUILD_SRC_DIR/terraform"
+  build:
+    commands:
+      - custodian run -s s3://cloudcustodian-lambda-bucket-logs ./policies/*
+  post_build:
+    commands:
+      - custodian rules applied

@@ -8,6 +8,10 @@ policies:
       role: arn:aws:iam::932074651790:role/cloudcustodian_role
     resource: ec2
     filters:
-      - "State.Name": runninghyhy
+      - "State.Name": running
+      - "tag:Provisioner": absent
+      - "tag:owner": absent
+      - "tag:env": absent
+      - "tag:project": absent
     actions:
-      - start
+      - terminate
