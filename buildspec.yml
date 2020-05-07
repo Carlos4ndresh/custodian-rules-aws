@@ -3,13 +3,14 @@ version: 0.2
 phases:
   install:
     commands:
-      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip3 install c7n"
+      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip3 install c7n && pip install c7n-mailer"
   pre_build:
     commands:
-      - "cd $CODEBUILD_SRC_DIR/terraform"
+      - "cd $CODEBUILD_SRC_DIR/policies"
+      - custodian run -v -d -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs *
   build:
     commands:
-      - custodian run -s s3://endava-med-devops-bucket-log-audit/custodian_logs ./policies/*
+      - c7n-mailer --config mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs *
   post_build:
     commands:
       - custodian rules applied

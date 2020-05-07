@@ -14,5 +14,6 @@ policies:
           - "tag:owner": absent
           - "tag:env": absent
           - "tag:project": absent
+          - "tag:InstanceSchedule": absent
     actions:
       - terminate
