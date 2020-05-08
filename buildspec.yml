@@ -4,8 +4,7 @@ phases:
   install:
     commands:
       - "apt update && apt upgrade -y"
-      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip install c7n && pip install c7n-mailer"
-      - "pip3 install jsonpointer"
+      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip install -r $CODEBUILD_SRC_DIR/reqs.txt"
   pre_build:
     commands:
       - "cd $CODEBUILD_SRC_DIR/policies"
