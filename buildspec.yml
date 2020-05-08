@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - "apt update && apt upgrade"
+      - "apt update && apt upgrade -y"
       - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip3 install c7n && pip install c7n-mailer"
   pre_build:
     commands:
