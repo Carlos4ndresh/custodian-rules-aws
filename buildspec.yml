@@ -13,4 +13,4 @@ phases:
       - c7n-mailer --config ./mailer/mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs --region us-east-1 --region us-east-2 --region us-west-1 --region us-west-2 *
   post_build:
     commands:
-      - custodian rules applied
+      - Cloud custodian rules applied
