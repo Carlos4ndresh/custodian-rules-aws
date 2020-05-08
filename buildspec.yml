@@ -3,6 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
+      - "apt update && apt upgrade"
       - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip3 install c7n && pip install c7n-mailer"
   pre_build:
     commands:
@@ -13,4 +14,4 @@ phases:
       - c7n-mailer --config $CODEBUILD_SRC_DIR/mailer/mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs --region us-east-1 --region us-east-2 --region us-west-1 --region us-west-2 *
   post_build:
     commands:
-      - Cloud custodian rules applied
+      - echo "Cloud custodian rules applied"
