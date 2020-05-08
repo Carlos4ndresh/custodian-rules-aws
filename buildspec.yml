@@ -10,7 +10,7 @@ phases:
       - custodian run -v -d -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs *
   build:
     commands:
-      - c7n-mailer --config mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs *
+      - c7n-mailer --config ./mailer/mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-devops-bucket-log-audit/custodian_logs *
   post_build:
     commands:
       - custodian rules applied
