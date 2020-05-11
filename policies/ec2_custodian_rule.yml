@@ -22,7 +22,7 @@ policies:
         priority_header: "2"
         subject: Your Instances Lack The required tags and were terminated
         to:
-          - carlos.herrera@outlook.com
+          - carlos.herrera@endava.com
         transport:
           type: sqs
           queue: https://sqs.us-east-1.amazonaws.com/932074651790/cloudcustodian_mailer_queue
