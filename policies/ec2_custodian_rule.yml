@@ -5,7 +5,7 @@ policies:
     mode:
       type: periodic
       schedule: "rate(30 minutes)"
-      role: arn:aws:iam::932074651790:role/cloudcustodian_role
+      role: arn:aws:iam::446416709302:role/cloudcustodian_role
     resource: ec2
     filters:
       - "State.Name": running
@@ -25,4 +25,4 @@ policies:
           - carlos.herrera@outlook.com
         transport:
           type: sqs
-          queue: https://sqs.us-east-1.amazonaws.com/932074651790/cloudcustodian_mailer_queue
+          queue: https://sqs.us-east-1.amazonaws.com/446416709302/cloudcustodian_mailer_queue
