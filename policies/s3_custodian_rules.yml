@@ -8,9 +8,12 @@ policies:
       role: arn:aws:iam::446416709302:role/cloudcustodian_role
     resource: s3
     filters:
-      - type: tag-count
-        value: 4
-        op: less-than
+      - or:
+          - "tag:Provisioner": absent
+          - "tag:owner": absent
+          - "tag:env": absent
+          - "tag:project": absent
+          - "tag:InstanceSchedule": absent
     actions:
       - type: notify
         template: default
