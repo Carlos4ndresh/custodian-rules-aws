@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - "apt update && apt upgrade -y"
+      - "virtualenv --python=python3 custodian && . custodian/bin/activate && pip install -r $CODEBUILD_SRC_DIR/reqs.txt"
+  pre_build:
+    commands:
+      - "cd $CODEBUILD_SRC_DIR/policies"
+      - custodian run -v -d -l /cloudcustodian -s s3://endava-med-bucket-log-audit/custodian_logs *
+  build:
+    commands:
+      - c7n-mailer --config $CODEBUILD_SRC_DIR/mailer/mailer.yml --update-lambda && custodian run -v -l /cloudcustodian -s s3://endava-med-bucket-log-audit/custodian_logs --region us-east-1 --region us-east-2 --region us-west-1 --region us-west-2 *
+  post_build:
+    commands:
+      - echo "Cloud custodian rules applied"

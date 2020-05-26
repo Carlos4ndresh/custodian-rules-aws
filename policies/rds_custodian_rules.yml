@@ -1,0 +1,34 @@
+policies:
+  - name: rds-untagged-termination
+    description: |
+      Terminate all running RDS instances that dont have the mandatory tags applied.
+    mode:
+      type: periodic
+      schedule: "rate(30 minutes)"
+      role: arn:aws:iam::arole:role/cloudcustodian_role
+    resource: rds
+    filters:
+      - or:
+          - "tag:Provisioner": absent
+          - "tag:owner": absent
+          - "tag:env": absent
+          - "tag:project": absent
+          - "tag:InstanceSchedule": absent
+      - or:
+          - "tag:provisioner": absent
+          - "tag:owner": absent
+          - "tag:env": absent
+          - "tag:project": absent
+          - "tag:InstanceSchedule": absent
+    actions:
+      - type: delete
+        skip-snapshot: true
+      - type: notify
+        template: default
+        priority_header: "2"
+        subject: Your Instances Lack The required tags and were terminated
+        to:
+          - carlos.herrera@outlook.com
+        transport:
+          type: sqs
+          queue: https://sqs.us-east-1.amazonaws.com/account/cloudcustodian_mailer_queue

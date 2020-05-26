@@ -1,0 +1,4 @@
+queue_url: https://sqs.us-east-1.amazonaws.com/account/cloudcustodian_mailer_queue
+role: arn:aws:iam::arole:role/mailer_sqs_queue_role
+from_address: carlos.herrera@endava.com
+region: us-east-1
